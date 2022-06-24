@@ -1,16 +1,12 @@
 package br.com.renanmateus.controller;
 
+import br.com.renanmateus.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.renanmateus.dto.PeopleDTO;
-import br.com.renanmateus.dto.PlanetsDTO;
-import br.com.renanmateus.dto.SpeciesDTO;
-import br.com.renanmateus.dto.StarshipsDTO;
-import br.com.renanmateus.dto.VehiclesDTO;
 import br.com.renanmateus.service.StarWarsServiceImpl;
 import reactor.core.publisher.Mono;
 
@@ -21,6 +17,11 @@ public class StarWarsController {
 	@Autowired
 	private StarWarsServiceImpl starWarsService;
 
+
+	@GetMapping()
+	public Mono<EndpointDTO> getEnpoints() {
+		return starWarsService.getEnpoints();
+	}
 	@GetMapping(value = "/people/{id}")
 	public Mono<PeopleDTO> getPeople(@PathVariable("id") long id) {
 		return starWarsService.getPeople(id);

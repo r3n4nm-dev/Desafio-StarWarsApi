@@ -17,4 +17,5 @@ public class StarWarsConfig {
     private String speciesMessage;
     private String starshipsMessage;
     private String defaultMessage;
+    private String url;
 }

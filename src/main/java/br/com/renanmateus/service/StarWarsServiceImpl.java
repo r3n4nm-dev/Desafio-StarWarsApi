@@ -4,6 +4,7 @@ import br.com.renanmateus.config.StarWarsConfig;
 import br.com.renanmateus.dto.*;
 import br.com.renanmateus.webclient.WebClientApi;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
@@ -142,5 +143,16 @@ public class StarWarsServiceImpl implements StarWarsService{
 			elementMonoList.set(i, this.webClientApi.getElement(stringList.get(i)));
 		}
 		return elementMonoList;
+	}
+
+	public Mono<EndpointDTO> getEnpoints() {
+
+		return Mono.just(EndpointDTO.builder()
+				.people(this.starWarsConfig.getUrl()+"api/people/1")
+				.species(this.starWarsConfig.getUrl()+"api/species/3")
+				.planets(this.starWarsConfig.getUrl()+"api/planets/2")
+				.starships(this.starWarsConfig.getUrl()+"api/starships/12")
+				.vehicles(this.starWarsConfig.getUrl()+"api/vehicles/14")
+				.build());
 	}
 }
