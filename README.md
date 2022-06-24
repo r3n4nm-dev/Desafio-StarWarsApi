@@ -1,6 +1,6 @@
 # Desafio-StarWarsApi
 ## Desafio Star Wars  
-###### A api pode ser acessada através do link: **[Amazon ec2](http://ec2-18-231-100-177.sa-east-1.compute.amazonaws.com:8080/api)**
+###### A api pode ser acessada através do link: **[Star Wars API](http://ec2-18-231-100-177.sa-east-1.compute.amazonaws.com:8080/api)**
   
 ### Projeto desenvolvido utilzando:  
 - Java 17  
@@ -33,11 +33,11 @@ acordo com descrição acima.
 
 ### Regras de negócio
 - As sugestões mostradas se baseiam no próprio retorno da api para um determinado recurso:
-- Para um personagen: as sugestões são personagens que tem o mesmo planeta natal.  
+- Para um personagem: as sugestões são personagens que tem o mesmo planeta natal.  
 - Para um planeta: as sugestões são personagens que residem no mesmo planeta.  
 - Para um veículo: as sugestões são personagens que usaram o mesmo veículo.  
 - Para uma espécie: as sugestões são personagens que tem a mesma espécie.  
-- Para um nave: as sugestões são personagens que usaram a mesma nave. 
+- Para uma nave: as sugestões são personagens que usaram a mesma nave. 
 
 * As sugestões assumem um valor máximo de 3 itens.
 * Se nenhuma sugestão for encontrada, o retorno só tratá informações do objeto 'pai', sem quaisquer sugestões.
