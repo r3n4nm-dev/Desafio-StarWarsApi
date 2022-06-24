@@ -9,7 +9,7 @@
 
 ### Considerações  
 - API desenvolvida com Ecossistema Spring (Spring Boot, Spring WebFlux);
-- Optei por usar Webflux por acreditar numa maior performance, já que são feitas chamadas encadeadas e assíncronas afim de retornar o elemento pesquisado com suas as sugestões.
+- Optei por usar Webflux por acreditar numa maior performance, já que são feitas chamadas encadeadas e assíncronas afim de retornar o elemento pesquisado com suas sugestões.
 - Testes unitários desenvolvidos para as camadas de controle e serviço.
 
 
