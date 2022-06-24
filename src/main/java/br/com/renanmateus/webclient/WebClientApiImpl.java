@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class WebClientApiImpl implements WebClientApi {
 
@@ -80,5 +83,34 @@ public class WebClientApiImpl implements WebClientApi {
 				)
 				.bodyToMono(Species.class).flatMap(s-> Mono.just(SpeciesDTO.transform(s)));
 	}
+	@Override
+	public Mono<ElementDTO> getElement(String url) {
+		return this.webClient.get().uri(url).retrieve()
+				.onStatus(HttpStatus::is4xxClientError,
+						error -> Mono.error(new ElementNotFoundException()))
+				.onStatus(HttpStatus::is5xxServerError,
+						error -> Mono.error(new InternalErrorException()))
+				.bodyToMono(ElementDTO.class);
+	}
+	@Override
+	public Mono<DataDTO> getSuggestions(List<String> stringList, List<Mono<ElementDTO>> elements) {
+		DataDTO dataDTO = new DataDTO();
+		List<ElementDTO> elementList = new ArrayList<>();
+		return Mono.zip(elements.get(0), elements.get(1), elements.get(2))
+				.map(objects -> {
+					if (objects.getT1().getName() != null) {
+						elementList.add(new ElementDTO(objects.getT1().getName(), stringList.get(0)));
+					}
+					if (objects.getT2().getName() != null) {
+						elementList.add(new ElementDTO(objects.getT2().getName(), stringList.get(1)));
+					}
+					if (objects.getT3().getName() != null) {
+						elementList.add(new ElementDTO(objects.getT3().getName(), stringList.get(2)));
+					}
+					dataDTO.setSuggestions(new SuggestionsDTO(elementList));
+					return dataDTO;
+				});
+	}
+
 }
 

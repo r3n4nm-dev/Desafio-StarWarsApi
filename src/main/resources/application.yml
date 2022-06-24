@@ -7,7 +7,7 @@ server:
 star-wars-api:
   people-message: "People with the same homeworld."
   planets-message: "Residents the same planet."
-  vehicles-message: "Pilots who controlled this vehicles."
+  vehicles-message: "Pilots who controlled this vehicle."
   species-message: "People with the same species."
   starships-message: "Pilots who controlled this starship."
   default-message: "Hhhummghhra nwurrr rowrigghh. In chewbacca language means: No elements found."
