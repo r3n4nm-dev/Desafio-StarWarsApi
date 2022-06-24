@@ -1,7 +1,10 @@
 package br.com.renanmateus.webclient;
 
 import br.com.renanmateus.dto.*;
+import br.com.renanmateus.exceptions.ElementNotFoundException;
+import br.com.renanmateus.exceptions.InternalErrorException;
 import br.com.renanmateus.model.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -21,30 +24,60 @@ public class WebClientApiImpl implements WebClientApi {
 		return this.webClient.get()
 				.uri(uri)
 				.retrieve()
+				.onStatus(HttpStatus::is4xxClientError,
+						error -> Mono.error(new ElementNotFoundException())
+				).onStatus(
+						HttpStatus::is5xxServerError,
+						error -> Mono.error(new InternalErrorException())
+				)
 				.bodyToMono(People.class).flatMap(p-> Mono.just(PeopleDTO.transform(p)));
 	}
 	@Override
 	public Mono<PlanetsDTO> getPlanets(long id, String url) {
 		String uri = url.isBlank() ? "https://swapi.dev/api/planets/"+id : url;
 		return this.webClient.get().uri(uri).retrieve()
+				.onStatus(HttpStatus::is4xxClientError,
+						error -> Mono.error(new ElementNotFoundException())
+				).onStatus(
+						HttpStatus::is5xxServerError,
+						error -> Mono.error(new InternalErrorException())
+				)
 				.bodyToMono(Planets.class).flatMap(p-> Mono.just(PlanetsDTO.transform(p)));
 	}
 	@Override
 	public Mono<VehiclesDTO> getVehicles(long id, String url) {
 		String uri = url.isBlank() ? "https://swapi.dev/api/vehicles/"+id : url;
 		return this.webClient.get().uri(uri).retrieve()
+				.onStatus(HttpStatus::is4xxClientError,
+						error -> Mono.error(new ElementNotFoundException())
+				).onStatus(
+						HttpStatus::is5xxServerError,
+						error -> Mono.error(new InternalErrorException())
+				)
 								.bodyToMono(Vehicles.class).flatMap(v -> Mono.just(VehiclesDTO.transform(v)));
 	}
 	@Override
 	public Mono<StarshipsDTO> getStarships(long id, String url) {
 		String uri = url.isBlank() ? "https://swapi.dev/api/starships/"+id : url;
 		return this.webClient.get().uri(uri).retrieve()
+				.onStatus(HttpStatus::is4xxClientError,
+						error -> Mono.error(new ElementNotFoundException())
+				).onStatus(
+						HttpStatus::is5xxServerError,
+						error -> Mono.error(new InternalErrorException())
+				)
 								.bodyToMono(Starships.class).flatMap(s-> Mono.just(StarshipsDTO.transform(s)));
 	}
 	@Override
 	public Mono<SpeciesDTO> getSpecies(long id, String url) {
 		String uri = url.isBlank() ? "https://swapi.dev/api/species/"+id : url;
 		return this.webClient.get().uri(uri).retrieve()
+				.onStatus(HttpStatus::is4xxClientError,
+						error -> Mono.error(new ElementNotFoundException())
+				).onStatus(
+						HttpStatus::is5xxServerError,
+						error -> Mono.error(new InternalErrorException())
+				)
 				.bodyToMono(Species.class).flatMap(s-> Mono.just(SpeciesDTO.transform(s)));
 	}
 }
