@@ -1,6 +1,5 @@
 # Desafio-StarWarsApi
 ## Desafio Star Wars  
-###### A api pode ser acessada através do link: **[Star Wars API](http://ec2-18-231-100-177.sa-east-1.compute.amazonaws.com:8080/api)**
 ###### A imagem do container deste projeto pode ser encontrada em **[Docker hub](https://hub.docker.com/r/r3n4nm/star-wars-api)**
 
   
